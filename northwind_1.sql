@@ -1,3 +1,6 @@
+--- CRIANDO O BANCO DE DADOS
+CREATE DATABASE meu_projeto_lighthouse
+
 ---CRIANDO A TABELA PRODUTO---
 
 CREATE TABLE produto (

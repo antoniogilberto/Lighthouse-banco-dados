@@ -7,7 +7,7 @@ params = {
     "database":"meu_projeto",
     "user":"postgres",
     "port":5432,
-    "password":"postgres"}
+    "password":"Gil22061997L"}
 
 def run_queries(params, commands):
     """ Runs the given query"""

@@ -122,8 +122,6 @@ ORDER BY total_vendas DESC
 LIMIT 1;'''
 
 
-# Crie uma nova query para cada tarefa
-# query_2 = """ CREATE TABLE produto..""""
 
 # Adicione todas as queries na lista abaixo
 queries = [query_1, query_2, query_3, query_4, query_5, query_6, query_7]

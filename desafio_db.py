@@ -4,7 +4,7 @@ import psycopg2
 # Altere as conexões para o seu banco de dados
 params = {
     "host":"127.0.0.1",
-    "database":"minha_empresa",
+    "database":"meu_projeto",
     "user":"postgres",
     "port":5432,
     "password":"postgres"}

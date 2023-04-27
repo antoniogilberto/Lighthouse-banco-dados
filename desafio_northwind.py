@@ -39,87 +39,115 @@ def run_queries(params, commands):
 
 #Qual foi o melhor mês de vendas da Northwind?
 
-query_1 = '''SELECT to_char(order_date, 'YYYY-MM') AS Ano_Mes, SUM(Quantity*od.unit_price*(1-Discount)) AS Total
-FROM orders o INNER JOIN order_details od 
+query_1 = '''select to_char(order_date, 'YYYY-MM')
+	as ano_mes,
+	sum(Quantity*od.unit_price*(1-Discount)) as total
+from orders o
+inner join order_details od 
 ON o.order_id = od.order_id
-GROUP BY Ano_Mes
-ORDER BY Total DESC;
+group by Ano_Mes
+order by Total desc;
 '''
 
 
 #Qual o total de vendas dos 5 maiores clientes do Brasil?
 
-query_2 = '''SELECT  c.customer_id, c.company_name, SUM(od.unit_price*od.quantity*(1 - od.discount)) AS total_vendas
-FROM customers c
-INNER JOIN orders o ON c.customer_id = o.customer_id
-INNER JOIN order_details od ON o.order_id = od.order_id
-WHERE c.country = 'Brazil'
-GROUP BY c.customer_id, c.company_name
-ORDER BY total_vendas DESC
-LIMIT 5; '''
+query_2 = '''select 
+	c.customer_id
+	, c.company_name
+	, sum(od.unit_price*od.quantity*(1 - od.discount)) as total_vendas
+from customers c
+inner join orders o on c.customer_id = o.customer_id
+inner join order_details od on o.order_id = od.order_id
+where
+	c.country = 'Brazil'
+group by c.customer_id, c.company_name
+order by total_vendas desc
+limit 5; '''
 
 
 
 #Qual supplier com mais vendas para o Brasil?
 
-query_3 = '''SELECT s.supplier_id, s.company_name, SUM(od.quantity) AS total_sales
-FROM suppliers s
-LEFT JOIN products p ON s.supplier_id = p.supplier_id
-LEFT JOIN order_details od ON p.product_id = od.product_id
-LEFT JOIN orders o ON od.order_id = o.order_id
-LEFT JOIN customers c ON o.customer_id = c.customer_id
-WHERE c.country = 'Brazil'
-GROUP BY s.supplier_id, s.company_name
-ORDER BY total_sales DESC
-LIMIT 1;'''
+query_3 = '''select
+	s.supplier_id
+	, s.company_name
+	, SUM(od.quantity) as total_sales
+from suppliers s
+left join products p on s.supplier_id = p.supplier_id
+left join order_details od on p.product_id = od.product_id
+left join orders o on od.order_id = o.order_id
+left join customers c on o.customer_id = c.customer_id
+where
+	c.country = 'Brazil'
+group by s.supplier_id, s.company_name
+order by total_sales desc
+limit 1;'''
 
 
 
 #Qual vendedor (employee) realizou mais vendas para clientes com customer.postal_code do Brasil?
 
-query_4 = '''SELECT e.employee_id, e.first_name, e.last_name, COUNT(o.order_id) AS total_vendas
-FROM employees e
-INNER JOIN orders o ON e.employee_id = o.employee_id
-INNER JOIN customers c ON o.customer_id = c.customer_id
-WHERE c.country = 'Brazil' AND c.postal_code LIKE '__%'
-GROUP BY e.employee_id, e.first_name, e.last_name
-ORDER BY total_vendas DESC
-LIMIT 1;'''
+query_4 = '''select
+	e.employee_id
+	, e.first_name	
+	, e.last_name, count(o.order_id) as total_vendas
+from employees e
+inner join orders o on e.employee_id = o.employee_id
+inner join customers c on o.customer_id = c.customer_id
+where
+	c.country = 'Brazil'
+	and c.postal_code like '__%'
+group by e.employee_id, e.first_name, e.last_name
+order by total_vendas desc
+limit 1'''
 
 
 
 #Qual employee que mais gerou resultados para a Northwind em número de pedidos?
 
-query_5 = '''SELECT e.employee_id, e.first_name, e.last_name, COUNT(o.order_id) AS total_pedidos
-FROM employees e
-INNER JOIN orders o ON e.employee_id = o.employee_id
-GROUP BY e.employee_id, e.first_name, e.last_name
-ORDER BY total_pedidos DESC
-LIMIT 1;'''
+query_5 = '''select
+	e.employee_id
+	, e.first_name
+	, e.last_name
+	, count(o.order_id) as total_pedidos
+from employees e
+inner join orders o on e.employee_id = o.employee_id
+group by e.employee_id, e.first_name, e.last_name
+order by total_pedidos desc
+limit 1;'''
 
 
 
 #Qual employee que mais gerou resultados para a Northwind em total de itens vendidos?
 
-query_6 = '''SELECT e.employee_id, e.first_name, e.last_name, SUM(od.quantity) AS total_itens_vendidos
-FROM employees e
-INNER JOIN orders o ON e.employee_id = o.employee_id
-INNER JOIN order_details od ON o.order_id = od.order_id
-GROUP BY e.employee_id, e.first_name, e.last_name
-ORDER BY total_itens_vendidos DESC
-LIMIT 1;'''
+query_6 = '''select
+	e.employee_id
+	, e.first_name
+	, e.last_name
+	, sum(od.quantity) as total_itens_vendidos
+from employees e
+inner join orders o on e.employee_id = o.employee_id
+inner join order_details od on o.order_id = od.order_id
+group by e.employee_id, e.first_name, e.last_name
+order by total_itens_vendidos desc
+limit 1;'''
 
 
 
 #Qual employee que mais gerou resultados para a Northwind em valor total dos pedidos
 
-query_7 = '''SELECT e.employee_id, e.first_name, e.last_name, SUM(od.quantity * od.unit_price) AS total_vendas
-FROM employees e
-INNER JOIN orders o ON e.employee_id = o.employee_id
-INNER JOIN order_details od ON o.order_id = od.order_id
-GROUP BY e.employee_id, e.first_name, e.last_name
-ORDER BY total_vendas DESC
-LIMIT 1;'''
+query_7 = '''select
+	e.employee_id
+	, e.first_name
+	, e.last_name
+	, sum(od.quantity * od.unit_price) as total_vendas
+from employees e
+inner join orders o on e.employee_id = o.employee_id
+inner join order_details od on o.order_id = od.order_id
+group by e.employee_id, e.first_name, e.last_name
+order by total_vendas desc
+limit 1;'''
 
 
 

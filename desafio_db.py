@@ -118,7 +118,7 @@ CREATE INDEX idx_pedidos_id ON Pedidos (id);
 
 
 # Adicione todas as queries na lista abaixo
-queries = [query_1]
+queries = [query_1, query_2, query_3, query_4, query_5 ]
 
 #---------------------------------------##
 # Não alterar abaixo desta linha

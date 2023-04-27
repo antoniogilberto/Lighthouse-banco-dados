@@ -15,7 +15,7 @@ order by Total desc;
 select 
 	c.customer_id
 	, c.company_name
-	, SUM(od.unit_price*od.quantity*(1 - od.discount)) as total_vendas
+	, sum(od.unit_price*od.quantity*(1 - od.discount)) as total_vendas
 from customers c
 inner join orders o on c.customer_id = o.customer_id
 inner join order_details od on o.order_id = od.order_id
@@ -86,7 +86,7 @@ select
 	e.employee_id
 	, e.first_name
 	, e.last_name
-	, SUM(od.quantity) as total_itens_vendidos
+	, sum(od.quantity) as total_itens_vendidos
 from employees e
 inner join orders o on e.employee_id = o.employee_id
 inner join order_details od on o.order_id = od.order_id

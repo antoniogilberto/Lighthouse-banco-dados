@@ -4,7 +4,7 @@ import psycopg2
 
 params = {
     "host":"127.0.0.1",
-    "database":"minha_empresa",
+    "database":"northwind",
     "user":"postgres",
     "port":5432,
     "password":"postgres"}
